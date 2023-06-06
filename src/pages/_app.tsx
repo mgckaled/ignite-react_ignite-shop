@@ -1,6 +1,10 @@
 import { globalStyles } from "@/styles/global"
 import type { AppProps } from "next/app"
 import { Roboto } from "next/font/google"
+import Image from "next/image"
+
+import logoImg from "../assets/logo.svg"
+import { Container, Header } from "../styles/pages/app"
 
 globalStyles()
 
@@ -21,9 +25,19 @@ export default function App({ Component, pageProps }: AppProps) {
           font-family: ${roboto.style.fontFamily};
         }
       `}</style>
-      <Component {...pageProps} />
+      <Container>
+        <Header>
+          <Image
+            src={logoImg.src}
+            alt='logo app image: Ignite Shop'
+            width={130}
+            height={52}
+          />
+        </Header>
+
+        <Component {...pageProps} />
+      </Container>
     </>
   )
 }
-
 
