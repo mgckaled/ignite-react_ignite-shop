@@ -37,7 +37,7 @@
 
 ## Sobre o Projeto
 
-Nesse projeto foi desenvolvido o Ignite Fleet, um aplicativo de gestão de veículos Offline first que permite registrar a utilização de veículos e visualizar no mapa, obtendo a localização.
+Nesse projeto foi desenvolvido o Ignite Shop, um projeto completo com o framework Next.js. Foi utilizado StitchesJs, utilizando-se de conceitos como SPA, server-side rendering (SSR) e static-site generation (SSG).
 
 ## Deploy
 

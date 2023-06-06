@@ -29,7 +29,7 @@ O componente `<Image />` fornecido pelo `next/image` oferece otimização autom�
 
 Em resumo, usar o componente `<Image />` do `next/image` pode melhorar significativamente o LCP e reduzir o consumo de largura de banda, ao otimizar automaticamente as imagens, fornecer imagens responsivas, implementar o carregamento tardio e suportar placeholders de imagem. É uma abordagem recomendada para projetos do Next.js para aprimorar o desempenho de sites com muitas imagens.
 
-### `Image Component and Image Optimization in Next.js`
+### `Image Component e Image Optimization e Next.js`
 
 No Next.js, um componente de imagem é fornecido para lidar com a otimização e renderização de imagens. O componente de imagem no Next.js foi projetado para otimizar e entregar imagens da maneira mais eficiente possível, levando em consideração fatores como tamanho do dispositivo, resolução da tela e condições de rede. Ele ajuda a melhorar o desempenho, otimizando automaticamente e servindo imagens no formato, tamanho e resolução apropriados para cada usuário.
 
