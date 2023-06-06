@@ -28,3 +28,34 @@ O componente `<Image />` fornecido pelo `next/image` oferece otimização autom�
 4. Suporte a placeholders: O Next.js oferece suporte integrado para placeholders de imagem. Enquanto a imagem real está carregando, é exibido um espaço reservado para melhorar o desempenho percebido. Essa abordagem melhora a experiência do usuário, dando a impressão de que a página está carregando mais rápido.
 
 Em resumo, usar o componente `<Image />` do `next/image` pode melhorar significativamente o LCP e reduzir o consumo de largura de banda, ao otimizar automaticamente as imagens, fornecer imagens responsivas, implementar o carregamento tardio e suportar placeholders de imagem. É uma abordagem recomendada para projetos do Next.js para aprimorar o desempenho de sites com muitas imagens.
+
+### `Image Component and Image Optimization in Next.js`
+
+No Next.js, um componente de imagem é fornecido para lidar com a otimização e renderização de imagens. O componente de imagem no Next.js foi projetado para otimizar e entregar imagens da maneira mais eficiente possível, levando em consideração fatores como tamanho do dispositivo, resolução da tela e condições de rede. Ele ajuda a melhorar o desempenho, otimizando automaticamente e servindo imagens no formato, tamanho e resolução apropriados para cada usuário.
+
+Para usar o componente de imagem no Next.js, você precisa importá-lo do módulo `next/image`. Aqui está um exemplo de como você pode usá-lo:
+
+```jsx
+import Image from 'next/image';
+
+function MeuComponente() {
+  return (
+    <div>
+      <Image
+        src="/caminho/para/imagem.jpg" // O caminho para a sua imagem
+        alt="Descrição da imagem" // Texto alternativo para acessibilidade
+        width={500} // A largura desejada da imagem
+        height={300} // A altura desejada da imagem
+      />
+    </div>
+  );
+}
+```
+
+No exemplo acima, você especifica o atributo `src` com o caminho para o arquivo de imagem. O atributo `alt` fornece um texto alternativo que é exibido quando a imagem não está disponível ou acessível. Os atributos `width` e `height` definem as dimensões desejadas da imagem.
+
+O Next.js otimizará automaticamente a imagem durante o tempo de construção. Ele gera várias variantes da imagem em tamanhos e formatos diferentes (por exemplo, WebP ou JPEG), com base na configuração do seu projeto Next.js.
+
+Quando a página é renderizada, o Next.js servirá a variante apropriada da imagem com base no dispositivo e nas condições de rede do usuário. Ele usa uma técnica chamada "otimização automática de imagem" para garantir a melhor qualidade e desempenho da imagem.
+
+Além disso, o Next.js oferece recursos avançados para otimização de imagens, como imagens responsivas e carregamento prioritário. Você pode aprender mais sobre esses recursos e opções de personalização na documentação do Next.js: <https://nextjs.org/docs/api-reference/next/image>

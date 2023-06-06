@@ -28,10 +28,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Container>
         <Header>
           <Image
-            src={logoImg.src}
+            src={logoImg}
             alt='logo app image: Ignite Shop'
             width={130}
             height={52}
+            priority
           />
         </Header>
 
@@ -40,4 +41,3 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   )
 }
-
