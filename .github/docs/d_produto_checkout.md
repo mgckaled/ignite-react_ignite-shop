@@ -13,7 +13,7 @@
 - `const product = await stripe.products.retrieve(productId, {expand: ["default_price"],})` - busca os produtos de dentro do Stripe, passando o id do produto como parâmentro.
 - `getStaticPaths` - método que devolve os ids dos produtos e especifica quais páginas estáticas devem ser geradas durante o build do nosso app.
 
-## Recomendações
+## Informações relevantes
 
 ### Uso do `<Link/> no Next.js`
 
@@ -48,7 +48,7 @@ Lembre-se de que o `<Link/>` do Next.js é usado para navegação interna no apl
 
 É importante notar que o `<Link/>` também possui várias opções adicionais, como pré-carregamento de páginas (`prefetch`), passagem de parâmetros dinâmicos na URL e muito mais. Você pode consultar a documentação oficial do Next.js para obter mais detalhes sobre esses recursos adicionais.
 
-## Navegação no Next.js
+### Navegação no Next.js
 
 A navegação dentro do Next.js é baseada em rotas e pode ser gerenciada usando várias abordagens. O Next.js oferece uma série de recursos e APIs para facilitar a navegação entre páginas.
 
@@ -100,7 +100,7 @@ export default HomePage;
 
 Essas são apenas algumas das opções de navegação disponíveis no Next.js. Você também pode explorar recursos avançados, como rotas dinâmicas, parâmetros de rota, rotas aninhadas e muito mais. O Next.js possui uma documentação detalhada sobre navegação que pode ajudar a entender melhor todas as opções disponíveis: <https://nextjs.org/docs/routing/introduction>
 
-## Qual a função do método `getStaticPaths`?
+### Qual a função do método `getStaticPaths`?
 
 O método `getStaticPaths` é uma função que pode ser implementada ao criar páginas estáticas dinâmicas no Next.js. Ele faz parte do sistema de geração de páginas estáticas do Next.js e é usado para especificar quais caminhos (ou URLs) devem ser pré-renderizados no momento da construção.
 
@@ -119,3 +119,19 @@ A propriedade `fallback` indica o comportamento do Next.js se o caminho solicita
 A função `getStaticPaths` é usada em conjunto com `getStaticProps`, que é responsável por buscar os dados necessários para renderizar a página com base no valor do parâmetro dinâmico.
 
 Em resumo, o `getStaticPaths` é usado no Next.js para especificar os caminhos possíveis para os quais você deseja gerar páginas estáticas dinâmicas e controlar o comportamento do Next.js quando um caminho não pré-renderizado é solicitado. Isso permite que você crie páginas dinâmicas e estáticas ao mesmo tempo, aproveitando os benefícios de desempenho da geração de páginas estáticas.
+
+### `fallback` do SSG
+
+No contexto do Next.js, o fallback (ou fallback behavior) se refere a uma funcionalidade do Static Site Generation (SSG) fornecida pelo framework. O fallback é uma opção que pode ser configurada para páginas geradas estaticamente (statically generated pages) quando essas páginas ainda não foram geradas.
+
+Quando o fallback está habilitado para uma página específica, o Next.js renderiza uma versão de "carregamento" dessa página no servidor, em vez de retornar uma página em branco ou um erro 404. Isso permite que o Next.js exiba uma interface de carregamento ou uma página alternativa enquanto a página está sendo gerada.
+
+O fallback é particularmente útil em cenários em que existem muitas páginas estáticas que precisam ser geradas e o processo de geração pode levar algum tempo. Sem o fallback, o usuário teria que esperar até que todas as páginas estejam prontas antes de visualizar qualquer conteúdo. Com o fallback, o usuário pode começar a ver o conteúdo básico da página enquanto o Next.js gera o restante do conteúdo no servidor.
+
+A configuração do fallback é feita através da propriedade `fallback` no método `getStaticPaths` em um arquivo de página do Next.js. Existem três valores possíveis para essa propriedade:
+
+- `false`: Se uma página não tiver sido gerada estaticamente no momento da solicitação, o Next.js retornará um erro 404.
+- `true`: O Next.js tentará gerar a página no momento da solicitação, se não tiver sido gerada estaticamente. Isso pode levar a um atraso na renderização da página.
+- `'blocking'`: O Next.js tentará gerar a página no servidor no momento da solicitação. Isso significa que o usuário terá que aguardar a conclusão da geração antes de ver a página, mas não receberá um erro 404.
+
+Portanto, o fallback do SSG no Next.js oferece uma maneira flexível de lidar com páginas estáticas ainda não geradas, permitindo que os usuários vejam o conteúdo básico enquanto o restante da página é gerado no servidor.
