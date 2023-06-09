@@ -2,9 +2,16 @@
 
 ## Notas Importantes
 
-No arquivo `src\styles\pages\home.ts`, a referência do `styles()` da tag html `<a>` foi alterada para o próprio `<Link/>` do Next.js. Dessa forma o componente estilizado `<Product>` assume suas funcionalidades.`
+- No arquivo `src\styles\pages\home.ts`, a referência do `styles()` da tag html `<a>` foi alterada para o próprio `<Link/>` do Next.js. Dessa forma o componente estilizado `<Product>` assume suas funcionalidades.`
 
-## Conceitos
+### `src/pages/index.tsx`
+
+- `const response = await stripe.products.list({...})` - retorna a listagem dos produtos cadastrados no Sripe.
+
+### `src/pages/product/[id].tsx`
+
+- `const product = await stripe.products.retrieve(productId, {expand: ["default_price"],})` - busca os produtos de dentro do Stripe, passando o id do produto como parâmentro.
+- `getStaticPaths` - método que devolve os ids dos produtos e especifica quais páginas estáticas devem ser geradas durante o build do nosso app.
 
 ## Recomendações
 
@@ -92,3 +99,23 @@ export default HomePage;
 **Página Estática**: O Next.js permite a criação de páginas estáticas pré-renderizadas que podem ser acessadas diretamente por meio de uma URL. Isso é útil para criar páginas de conteúdo estático, como páginas de documentação ou páginas de ajuda. Basta criar um arquivo JavaScript ou TypeScript no diretório `pages` para cada página estática desejada.
 
 Essas são apenas algumas das opções de navegação disponíveis no Next.js. Você também pode explorar recursos avançados, como rotas dinâmicas, parâmetros de rota, rotas aninhadas e muito mais. O Next.js possui uma documentação detalhada sobre navegação que pode ajudar a entender melhor todas as opções disponíveis: <https://nextjs.org/docs/routing/introduction>
+
+## Qual a função do método `getStaticPaths`?
+
+O método `getStaticPaths` é uma função que pode ser implementada ao criar páginas estáticas dinâmicas no Next.js. Ele faz parte do sistema de geração de páginas estáticas do Next.js e é usado para especificar quais caminhos (ou URLs) devem ser pré-renderizados no momento da construção.
+
+Ao criar uma página estática dinâmica no Next.js, geralmente você precisa fornecer os caminhos possíveis para os quais deseja gerar as páginas estáticas. O `getStaticPaths` permite que você defina esses caminhos de forma dinâmica, com base em dados externos ou em qualquer outra lógica personalizada que você precise.
+
+A função `getStaticPaths` deve ser exportada por uma página em um arquivo chamado `[slug].js` (ou qualquer outro nome dinâmico que você tenha definido), que é responsável por renderizar a página com base no valor do parâmetro dinâmico.
+
+Dentro da função `getStaticPaths`, você precisa retornar um objeto com duas propriedades principais: `paths` e `fallback`. A propriedade `paths` deve ser um array de objetos, onde cada objeto representa um caminho possível que você deseja pré-renderizar. Cada objeto deve conter um parâmetro `params` que contém o valor do parâmetro dinâmico correspondente.
+
+A propriedade `fallback` indica o comportamento do Next.js se o caminho solicitado não foi pré-renderizado. Ela pode ter um dos seguintes valores:
+
+- `false`: Se um caminho não pré-renderizado for solicitado, o Next.js retornará uma página de erro 404.
+- `true`: Se um caminho não pré-renderizado for solicitado, o Next.js tentará gerar a página no momento da solicitação.
+- `'blocking'`: Semelhante a `true`, mas a geração da página ocorrerá no servidor, bloqueando a resposta até que a página esteja pronta.
+
+A função `getStaticPaths` é usada em conjunto com `getStaticProps`, que é responsável por buscar os dados necessários para renderizar a página com base no valor do parâmetro dinâmico.
+
+Em resumo, o `getStaticPaths` é usado no Next.js para especificar os caminhos possíveis para os quais você deseja gerar páginas estáticas dinâmicas e controlar o comportamento do Next.js quando um caminho não pré-renderizado é solicitado. Isso permite que você crie páginas dinâmicas e estáticas ao mesmo tempo, aproveitando os benefícios de desempenho da geração de páginas estáticas.
