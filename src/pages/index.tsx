@@ -1,11 +1,12 @@
 import { useKeenSlider } from "keen-slider/react"
+import { GetStaticProps } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import Stripe from "stripe"
 
 import "keen-slider/keen-slider.min.css"
 import { stripe } from "../lib/stripe"
 import { HomeContainer, Product } from "../styles/pages/home"
-import { GetStaticProps } from "next"
 
 interface HomeProps {
   products: {
@@ -32,6 +33,7 @@ export default function Home({ products }: HomeProps) {
       {products.map(product => {
         return (
           <Product
+            href={`/product/${product.id}`}
             key={product.id}
             className='keen-slider__slide'
           >
@@ -78,5 +80,5 @@ export const getStaticProps: GetStaticProps = async () => {
     },
     revalidate: 60 * 60 * 2, // 2 hours,
   }
-
 }
+

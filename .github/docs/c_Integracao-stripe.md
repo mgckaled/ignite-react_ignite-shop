@@ -8,6 +8,7 @@
 ### `src\lib\stripe.ts`
 
 - É possível postfixar uma expressão com `!` para dizer ao TypeScript que você sabe que ele não é `null` ou `undefined`. Isso funciona da mesma forma que uma asserção `as`. Isso acontece pois o TypeScript não reconhece as variáveis e valores que colocamos nos arquivos de variável ambiente, então o TypeScript sempre considera que o valor pode ser uma `string` ou `undefined` caso você por exemplo não preencha o valor.
+- Outra forma é incluir as chaves dentro da função nativa `String()`, para garantir a transformação do dado em uma `string`.
 - O versionamento deve ser consultado [AQUI](https://stripe.com/docs/api/request_ids). É recomendado utilizar a última versão do API.
 
 ### `src\pages\index.tsx`
@@ -58,3 +59,17 @@ O `getServerSideProps` é útil quando você precisa buscar dados que são espec
 Se você tiver dados que podem ser pré-renderizados e não precisam ser atualizados em tempo real, pode considerar o uso do `getStaticProps` em vez do `getServerSideProps`. O `getStaticProps` busca os dados no momento da construção da página e gera uma versão estática da página, que pode ser armazenada em cache e servida de forma mais eficiente.
 
 Os dados são buscados no lado do servidor antes de renderizar a página e, portanto, são exibidos mesmo quando o JavaScript está desabilitado no navegador do cliente. Isso ocorre porque a busca dos dados acontece no servidor durante a construção da página e o HTML resultante é enviado para o cliente.
+
+### É necessário gerar novo `build` ao atulizar uma página em SSG?
+
+Não necessariamente, atualmente nós temos no NextJS o que chamamos de ISR, que é Incremental Static Generation e esse conceito permite que a gente gere novas versões das páginas sem necessariamente fazer um novo build, apenas revalidando o cache.
+
+E uma das funcionalidades disso, é justamente o On demand revalidation que permite você revalidar a página sem necessidade de um novo build, a partir de uma chamada à API por exemplo.
+
+Você pode dar uma lida nisso por aqui: <https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation>
+
+Basta você implementar um webhook no stripe, que quando algum produto for atualizado, envie uma chamada para API por exemplo /revalidate, por lá você pode recuperar o id do produto e revalidar somente a página desse produto.
+
+Aqui pelo fórum eu já dei um exemplo disso com Hygraph, mas é praticamente a mesma coisa, apenas mudaria pro stripe: <https://app.rocketseat.com.br/h/forum/react-js/7a2ef279-44d6-4b44-bd0c-c26c29f962e4>
+
+PS: se Você alterou um link, nesse caso, se for uma alteração no código e não no conteúdo que está sendo gerado de forma dinâmica, vai precisar de um novo build sim.
