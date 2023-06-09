@@ -7,11 +7,34 @@
 ### `src/pages/index.tsx`
 
 - `const response = await stripe.products.list({...})` - retorna a listagem dos produtos cadastrados no Sripe.
+- `<Link prefetch={false} />` - Evita que os links façam pré-carregamentos. Recomenda-se usar esses recursos caso as páginas tenham muitos links que façam requisições para não alterar o desenpenho do servidor.
 
 ### `src/pages/product/[id].tsx`
 
 - `const product = await stripe.products.retrieve(productId, {expand: ["default_price"],})` - busca os produtos de dentro do Stripe, passando o id do produto como parâmentro.
 - `getStaticPaths` - método que devolve os ids dos produtos e especifica quais páginas estáticas devem ser geradas durante o build do nosso app.
+
+## Conceitos
+
+### `crawler`
+
+Um "crawler" é um programa ou bot automatizado que percorre a internet de forma sistemática, visitando páginas da web e coletando informações sobre elas. Esses bots são usados pelos mecanismos de busca, como o Google, para indexar e catalogar páginas da web, permitindo que os usuários pesquisem e encontrem informações relevantes.
+
+O crawler começa visitando uma ou mais páginas da web, seguindo os links contidos nessas páginas para acessar outras páginas. Esse processo é repetido em uma escala muito grande, abrangendo milhões de páginas da web. O objetivo principal do crawler é descobrir e registrar informações sobre o conteúdo das páginas, como texto, imagens, vídeos e outros elementos relevantes.
+
+Os crawlers também podem ser usados para outros fins, como monitorar alterações em sites específicos, coletar dados para análise, verificar a disponibilidade de páginas da web ou buscar informações específicas em sites de comércio eletrônico. Eles desempenham um papel crucial na indexação da web e na disponibilização de informações para os usuários através dos mecanismos de busca.
+
+### `intersection observer API`
+
+A Intersection Observer API (Application Programming Interface) é uma API JavaScript que permite rastrear e observar mudanças na interseção entre um elemento HTML e o viewport do navegador ou um elemento pai contendo esse elemento. Ela fornece uma forma eficiente de detectar quando um elemento se torna visível ou deixa de ser visível na tela do usuário.
+
+A principal finalidade da Intersection Observer API é permitir que os desenvolvedores monitorem o comportamento de rolagem e a visibilidade de elementos na página sem a necessidade de implementar lógica complexa ou utilizar eventos de rolagem. Isso é especialmente útil para casos em que é necessário carregar conteúdo sob demanda, executar animações ou realizar ações com base na visibilidade do elemento.
+
+O Intersection Observer API trabalha com um objeto "observer" que você cria e registra em um ou mais elementos de destino. Esse observador verifica continuamente se o elemento-alvo está visível dentro do viewport ou do elemento pai e dispara um callback quando ocorrem mudanças na interseção. O callback pode ser configurado para executar ações específicas, como carregar conteúdo adicional, iniciar uma animação ou atualizar o estado de um elemento.
+
+Essa API oferece uma maneira eficiente de rastrear a visibilidade de elementos, pois utiliza mecanismos internos do navegador para otimizar o desempenho. Ela evita a necessidade de verificar manualmente a posição dos elementos na página e atualizar os estados com base na rolagem, resultando em um código mais limpo e eficiente.
+
+No entanto, é importante notar que a Intersection Observer API é suportada por navegadores mais recentes e pode não estar disponível em versões mais antigas. Portanto, ao utilizar essa API, é recomendável verificar a compatibilidade do navegador e fornecer uma solução alternativa para usuários com navegadores desatualizados, se necessário.
 
 ## Informações relevantes
 
@@ -135,3 +158,29 @@ A configuração do fallback é feita através da propriedade `fallback` no mét
 - `'blocking'`: O Next.js tentará gerar a página no servidor no momento da solicitação. Isso significa que o usuário terá que aguardar a conclusão da geração antes de ver a página, mas não receberá um erro 404.
 
 Portanto, o fallback do SSG no Next.js oferece uma maneira flexível de lidar com páginas estáticas ainda não geradas, permitindo que os usuários vejam o conteúdo básico enquanto o restante da página é gerado no servidor.
+
+### feature `prefetch` do `<Link/>`
+
+O Next.js, um framework de desenvolvimento web baseado em React, possui uma funcionalidade chamada "prefetch" que permite pré-carregar (prefetch) páginas à partir do componente `Link`. O prefetching é uma técnica que permite carregar antecipadamente recursos, como páginas, para melhorar a experiência do usuário, especialmente em casos onde a navegação é rápida e fluida.
+
+Ao utilizar o componente `Link` do Next.js, você pode adicionar a propriedade `prefetch` para pré-carregar a página vinculada quando o usuário interagir com o link. Por exemplo:
+
+```tsx
+import Link from 'next/link';
+
+function MeuComponente() {
+  return (
+    <div>
+      <Link href="/pagina">
+        <a prefetch>Página</a>
+      </Link>
+    </div>
+  );
+}
+```
+
+Quando o usuário passar o mouse ou tocar no link, o Next.js iniciará o processo de pré-carregamento da página `/pagina`. Isso significa que o Next.js buscará os recursos necessários para essa página de forma antecipada, aumentando a velocidade de carregamento quando o usuário efetivamente acessar a página.
+
+É importante observar que o prefetching só ocorre quando o JavaScript está ativado no navegador do usuário. Em navegadores sem suporte a JavaScript ou quando o JavaScript está desativado, o prefetching não será realizado.
+
+O prefetching pode ser uma funcionalidade útil para otimizar a navegação do usuário em seu aplicativo Next.js, proporcionando transições mais suaves entre as páginas. No entanto, é importante considerar cuidadosamente onde e quando utilizar o prefetch, pois um uso excessivo pode resultar em desperdício de recursos e afetar negativamente o desempenho do aplicativo.
