@@ -3,6 +3,7 @@
 ## Notas Importantes
 
 - No arquivo `src\styles\pages\home.ts`, a referência do `styles()` da tag html `<a>` foi alterada para o próprio `<Link/>` do Next.js. Dessa forma o componente estilizado `<Product>` assume suas funcionalidades.`
+- `src\pages\api\**` -  API routes: rotas que funcionam como uma rota back-end para podermos realizar ações a partir do server-side.
 
 ### `src/pages/index.tsx`
 
