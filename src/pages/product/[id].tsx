@@ -12,10 +12,15 @@ interface ProductProps {
     imageUrl: string
     price: string
     description: string
+    defaultPriceId: string
   }
 }
 
 export default function Product({ product }: ProductProps) {
+  function handleBuyButton() {
+    console.log(product.defaultPriceId)
+  }
+
   return (
     <ProductContainer>
       <ImageContainer>
@@ -33,7 +38,7 @@ export default function Product({ product }: ProductProps) {
 
         <p>{product.description}</p>
 
-        <button>Comprar agora</button>
+        <button onClick={handleBuyButton}>Comprar agora</button>
       </ProductDetails>
     </ProductContainer>
   )
@@ -51,7 +56,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ params }) => {
-
   if (!params) {
     return {
       notFound: true, // Caso não exista parametros, retorna um 404
@@ -76,6 +80,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
           currency: "BRL",
         }).format(price.unit_amount ? price.unit_amount / 100 : 0),
         description: product.description,
+        defaultPriceId: price.id,
       },
     },
     revalidate: 60 * 60 * 2, // 2 hours

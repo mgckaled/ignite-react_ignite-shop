@@ -2,8 +2,10 @@ import { globalStyles } from "@/styles/global"
 import type { AppProps } from "next/app"
 import { Roboto } from "next/font/google"
 import Image from "next/image"
+import Link from "next/link"
 
 import logoImg from "../assets/logo.svg"
+
 import { Container, Header } from "../styles/pages/app"
 
 globalStyles()
@@ -27,13 +29,15 @@ export default function App({ Component, pageProps }: AppProps) {
       `}</style>
       <Container>
         <Header>
-          <Image
-            src={logoImg}
-            alt='logo app image: Ignite Shop'
-            width={130}
-            height={52}
-            priority
-          />
+          <Link href={"/"}>
+            <Image
+              src={logoImg}
+              alt='logo app image: Ignite Shop'
+              width={130}
+              height={52}
+              priority
+            />
+          </Link>
         </Header>
 
         <Component {...pageProps} />
