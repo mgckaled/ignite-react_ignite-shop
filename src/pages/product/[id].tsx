@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useState } from "react"
 import Stripe from "stripe"
 
+import Head from "next/head"
 import { stripe } from "../../lib/stripe"
 import { ImageContainer, ProductContainer, ProductDetails } from "../../styles/pages/product"
 
@@ -40,30 +41,38 @@ export default function Product({ product }: ProductProps) {
   }
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image
-          src={product.imageUrl}
-          width={520}
-          height={480}
-          alt=''
-        />
-      </ImageContainer>
+    <>
+      <Head>
+        <title>{`${product.name} | Ignite Shop}`}</title>
+      </Head>
 
-      <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+      <ProductContainer>
+        <ImageContainer>
+          <Image
+            src={product.imageUrl}
+            width={520}
+            height={480}
+            alt={`Imagem da ${product.name}`}
+            priority
+            style={{ width: "85%", height: "85%" }}
+          />
+        </ImageContainer>
 
-        <p>{product.description}</p>
+        <ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
 
-        <button
-          disabled={isCreatingCheckoutSession}
-          onClick={handleBuyButton}
-        >
-          Comprar agora
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+          <p>{product.description}</p>
+
+          <button
+            disabled={isCreatingCheckoutSession}
+            onClick={handleBuyButton}
+          >
+            Comprar agora
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   )
 }
 
